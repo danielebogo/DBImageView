@@ -101,7 +101,7 @@ static CGFloat const kCellHeight = 80.0;
         [cell.contentView addSubview:imageView];
     }
     
-    [(DBImageView *)[cell viewWithTag:101] setImage:[DBImage imageWithPath:_items[indexPath.row]]];
+    [(DBImageView *)[cell viewWithTag:101] setRemoteImage:[DBImage imageWithPath:_items[indexPath.row]]];
     
     return cell;
 }

@@ -10,8 +10,8 @@
 
 @class DBImage;
 @interface DBImageView : UIView
-@property (nonatomic, strong) DBImage *image;
-@property (nonatomic, strong) UIImage *placeHolder;
+@property (nonatomic, strong) DBImage *remoteImage;
+@property (nonatomic, strong) UIImage *placeHolder, *image;
 
 + (void) triggerImageRequests:(BOOL)start;
 @end

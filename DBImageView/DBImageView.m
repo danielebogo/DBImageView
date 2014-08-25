@@ -96,11 +96,11 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
         return;
     }
     
-    if ( !_image ) {
+    if ( !_remoteImage ) {
         return;
     }
     
-    [[DBImageViewCache cache] imageForURL:_image.imageURL found:^(UIImage *image) {
+    [[DBImageViewCache cache] imageForURL:_remoteImage.imageURL found:^(UIImage *image) {
         _imageView.image = image;
     } notFound:^{
         if ( !DBImageShouldDownload ) {
@@ -113,7 +113,7 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
         
         [self.spinner startAnimating];
         
-        _currentRequest = _image.imageRequest;
+        _currentRequest = _remoteImage.imageRequest;
         
         [_currentRequest downloadImageWithSuccess:^(UIImage *image, NSHTTPURLResponse *response) {
             [self stopSpinner];
@@ -129,13 +129,13 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 
 #pragma mark - Properties
 
-- (void) setImage:(DBImage *)image
+- (void) setRemoteImage:(DBImage *)remoteImage
 {
-    if ( image != _image ) {
+    if ( remoteImage != _remoteImage ) {
         [_currentRequest cancel];
 		_currentRequest = nil;
         
-        _image = image;
+        _remoteImage = remoteImage;
         
         _imageView.image = nil;
         
@@ -155,6 +155,11 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 		_spinner.hidesWhenStopped = YES;
     }
     return _spinner;
+}
+
+- (void) setImage:(UIImage *)image
+{
+    _imageView.image = image;
 }
 
 @end

@@ -60,12 +60,6 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     [_currentRequest cancel];
 }
 
-- (void) stopSpinner;
-{
-	[self.spinner stopAnimating];
-	[self.spinner removeFromSuperview];
-}
-
 - (void) setFrame:(CGRect)frame
 {
     [super setFrame:frame];
@@ -83,6 +77,12 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 - (void) setContentMode:(UIViewContentMode)contentMode
 {
     _imageView.contentMode = contentMode;
+}
+
+- (void) stopSpinner;
+{
+	[self.spinner stopAnimating];
+	[self.spinner removeFromSuperview];
 }
 
 - (void) shouldStartDownload:(NSNotification *)notification

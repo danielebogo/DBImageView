@@ -19,6 +19,7 @@ static CGFloat const kCellHeight = 80.0;
     NSArray *_items;
 }
 
+@property (nonatomic, strong) UIView *headerView;
 @end
 
 @implementation RootViewController
@@ -61,6 +62,7 @@ static CGFloat const kCellHeight = 80.0;
     [_tableView setDataSource:self];
     [_tableView setDelegate:self];
     [_tableView setRowHeight:kCellHeight];
+    [_tableView setTableHeaderView:self.headerView];
     [self.view addSubview:_tableView];
 }
 
@@ -79,6 +81,20 @@ static CGFloat const kCellHeight = 80.0;
 - (void) clearCache
 {
     [[DBImageViewCache cache] clearCache];
+}
+
+- (UIView *) headerView
+{
+    if ( !_headerView ) {
+        _headerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, 320, 100 }];
+        [_headerView setBackgroundColor:[UIColor grayColor]];
+        DBImageView *imageView = [[DBImageView alloc] initWithFrame:(CGRect){ 120, 10, 80, 80 }];
+        [imageView.layer setCornerRadius:40];
+        [imageView setRemoteImage:[DBImage imageWithPath:@"https://scontent-a.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/10577058_10204359246124455_969288110705724720_n.jpg?oh=851258b8fd22341daf325b256d227fd8&oe=547E80AC"]];
+        [_headerView addSubview:imageView];
+    }
+    
+    return _headerView;
 }
 
 #pragma mark - UITableViewDataSource

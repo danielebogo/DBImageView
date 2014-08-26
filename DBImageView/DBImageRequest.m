@@ -10,13 +10,13 @@
 #import "DBImageViewCache.h"
 
 @interface DBImageRequest () <NSURLConnectionDelegate>
-@property (nonatomic, strong) NSURLRequest *request;
+@property (nonatomic, copy) NSURLRequest *request;
 @property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, strong) NSHTTPURLResponse *response;
 @property (nonatomic, strong) NSMutableData* receivedData;
 @property (nonatomic, assign) BOOL ended;
-@property(copy, nonatomic) DBRequestSuccessHandler successHandler;
-@property(copy, nonatomic) DBRequestErrorHandler errorHandler;
+@property (nonatomic, copy) DBRequestSuccessHandler successHandler;
+@property (nonatomic, copy) DBRequestErrorHandler errorHandler;
 @end
 
 @implementation DBImageRequest

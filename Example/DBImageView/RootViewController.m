@@ -10,6 +10,7 @@
 #import "DBImageView.h"
 #import "DBImage.h"
 #import "DBImageViewCache.h"
+#import "UIImageView+DBImage.h"
 
 static NSString *const kCellIdentifier = @"kCellIdentifier";
 static CGFloat const kCellHeight = 80.0;
@@ -111,13 +112,15 @@ static CGFloat const kCellHeight = 80.0;
     if ( !cell ) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:kCellIdentifier];
         
-        DBImageView *imageView = [[DBImageView alloc] initWithFrame:(CGRect){ 10, 10, 60, 60 }];
+//        DBImageView *imageView = [[DBImageView alloc] initWithFrame:(CGRect){ 10, 10, 60, 60 }];
+        UIImageView *imageView = [[UIImageView alloc] initWithFrame:(CGRect){ 10, 10, 60, 60 }];
         [imageView setPlaceHolder:[UIImage imageNamed:@"Placeholder"]];
         [imageView setTag:101];
         [cell.contentView addSubview:imageView];
     }
     
-    [(DBImageView *)[cell viewWithTag:101] setRemoteImage:[DBImage imageWithPath:_items[indexPath.row]]];
+//    [(DBImageView *)[cell viewWithTag:101] setRemoteImage:[DBImage imageWithPath:_items[indexPath.row]]];
+    [(UIImageView *)[cell viewWithTag:101] setRemoteImage:[DBImage imageWithPath:_items[indexPath.row]]];
     
     return cell;
 }

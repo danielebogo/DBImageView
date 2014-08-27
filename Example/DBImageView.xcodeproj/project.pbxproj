@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9A78332B19AE34B8000D076D /* UIImageView+DBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A78332A19AE34B8000D076D /* UIImageView+DBImage.m */; };
 		9AA6856F19AB54A100E8FBED /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA6856E19AB54A100E8FBED /* Foundation.framework */; };
 		9AA6857119AB54A100E8FBED /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA6857019AB54A100E8FBED /* CoreGraphics.framework */; };
 		9AA6857319AB54A100E8FBED /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AA6857219AB54A100E8FBED /* UIKit.framework */; };
@@ -38,8 +37,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9A78332919AE34B8000D076D /* UIImageView+DBImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+DBImage.h"; sourceTree = "<group>"; };
-		9A78332A19AE34B8000D076D /* UIImageView+DBImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+DBImage.m"; sourceTree = "<group>"; };
 		9AA6856B19AB54A100E8FBED /* DBImageView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DBImageView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AA6856E19AB54A100E8FBED /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		9AA6857019AB54A100E8FBED /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -168,8 +165,6 @@
 		9AA6859E19AB553C00E8FBED /* DBImageView */ = {
 			isa = PBXGroup;
 			children = (
-				9A78332919AE34B8000D076D /* UIImageView+DBImage.h */,
-				9A78332A19AE34B8000D076D /* UIImageView+DBImage.m */,
 				9AA685A219AB654F00E8FBED /* DBImageView.h */,
 				9AA685A319AB654F00E8FBED /* DBImageView.m */,
 				9AA685A519AB6A4500E8FBED /* DBImageViewCache.h */,
@@ -278,7 +273,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A78332B19AE34B8000D076D /* UIImageView+DBImage.m in Sources */,
 				9AA6857F19AB54A100E8FBED /* AppDelegate.m in Sources */,
 				9AA685A719AB6A4500E8FBED /* DBImageViewCache.m in Sources */,
 				9AA6857B19AB54A100E8FBED /* main.m in Sources */,

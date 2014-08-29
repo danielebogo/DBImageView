@@ -14,3 +14,24 @@ The recommended approach for installating DBImageView is via the [CocoaPods](htt
 platform :ios, '6.0'
 pod 'DBImageView', '~> 1.0'
 ```
+## Integration
+
+DBImageView has a simple integration:
+
+```objective-c
+#import "DBImageView.h"
+```
+Add DBImageView:
+```objective-c
+DBImageView *imageView = [[DBImageView alloc] initWithFrame:(CGRect){ 10, 10, 60, 60 }];
+```
+
+Set the remote image path:
+```objective-c
+[imageView setImageWithPath:@"remote_image_URL"];
+```
+
+You can set a placeholder:
+```objective-c
+[imageView setPlaceHolder:[UIImage imageNamed:@"Placeholder"]];
+```

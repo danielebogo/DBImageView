@@ -1,4 +1,4 @@
-![Alt text](http://bogodaniele.com/apps/development/dbimageview/github/dbimageview_splash.png)
+
 
 A simple object to load images asynchronously
 

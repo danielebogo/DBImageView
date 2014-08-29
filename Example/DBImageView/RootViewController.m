@@ -8,8 +8,6 @@
 
 #import "RootViewController.h"
 #import "DBImageView.h"
-#import "DBImage.h"
-#import "DBImageViewCache.h"
 
 static NSString *const kCellIdentifier = @"kCellIdentifier";
 static CGFloat const kCellHeight = 80.0;
@@ -80,7 +78,7 @@ static CGFloat const kCellHeight = 80.0;
 
 - (void) clearCache
 {
-    [[DBImageViewCache cache] clearCache];
+    [DBImageView clearCache];
 }
 
 - (UIView *) headerView
@@ -90,7 +88,7 @@ static CGFloat const kCellHeight = 80.0;
         [_headerView setBackgroundColor:[UIColor grayColor]];
         DBImageView *imageView = [[DBImageView alloc] initWithFrame:(CGRect){ 120, 10, 80, 80 }];
         [imageView.layer setCornerRadius:40];
-        [imageView setRemoteImage:[DBImage imageWithPath:@"https://scontent-a.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/10577058_10204359246124455_969288110705724720_n.jpg?oh=851258b8fd22341daf325b256d227fd8&oe=547E80AC"]];
+        [imageView setImageWithPath:@"https://scontent-a.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/10577058_10204359246124455_969288110705724720_n.jpg?oh=851258b8fd22341daf325b256d227fd8&oe=547E80AC"];
         [_headerView addSubview:imageView];
     }
     
@@ -117,7 +115,7 @@ static CGFloat const kCellHeight = 80.0;
         [cell.contentView addSubview:imageView];
     }
     
-    [(DBImageView *)[cell viewWithTag:101] setRemoteImage:[DBImage imageWithPath:_items[indexPath.row]]];
+    [(DBImageView *)[cell viewWithTag:101] setImageWithPath:_items[indexPath.row]];
     
     return cell;
 }

@@ -20,10 +20,16 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     UIActivityIndicatorView *_spinner;
 }
 
+@property (nonatomic, strong) DBImage *remoteImage;
 @property (nonatomic, strong) UIActivityIndicatorView *spinner;
 @end
 
 @implementation DBImageView
+
++ (void) clearCache
+{
+    [[DBImageViewCache cache] clearCache];
+}
 
 + (void) triggerImageRequests:(BOOL)start
 {
@@ -120,14 +126,26 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
             
             _imageView.image = image;
             _currentRequest = nil;
+            _imageWithPath = nil;
         } error:^(NSError *error) {
             [self stopSpinner];
             _currentRequest = nil;
+            _imageWithPath = nil;
         }];
     }];
 }
 
 #pragma mark - Properties
+
+- (void) setImageWithPath:(NSString *)imageWithPath
+{
+    if ( [_imageWithPath isEqualToString:imageWithPath] ) {
+        return;
+    }
+    
+    _imageWithPath = imageWithPath;
+    [self setRemoteImage:[DBImage imageWithPath:_imageWithPath]];
+}
 
 - (void) setRemoteImage:(DBImage *)remoteImage
 {

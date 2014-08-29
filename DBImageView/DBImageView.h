@@ -8,10 +8,10 @@
 
 #import <UIKit/UIKit.h>
 
-@class DBImage;
 @interface DBImageView : UIView
-@property (nonatomic, strong) DBImage *remoteImage;
+@property (nonatomic, copy) NSString *imageWithPath;
 @property (nonatomic, strong) UIImage *placeHolder, *image;
 
 + (void) triggerImageRequests:(BOOL)start;
++ (void) clearCache;
 @end

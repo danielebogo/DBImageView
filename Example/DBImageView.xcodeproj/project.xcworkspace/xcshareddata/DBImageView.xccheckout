@@ -10,29 +10,29 @@
 	<string>DBImageView</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>5E97D556-A823-4C25-B276-07FD5A6F21A8</key>
+		<key>3907FE3AD2A0B71A5BA3ADC95BBF7D3A00219C99</key>
 		<string>ssh://github.com/danielebogo/DBImageView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
 	<string>untitled folder/DBImageView/DBImageView.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>5E97D556-A823-4C25-B276-07FD5A6F21A8</key>
+		<key>3907FE3AD2A0B71A5BA3ADC95BBF7D3A00219C99</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>ssh://github.com/danielebogo/DBImageView.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>5E97D556-A823-4C25-B276-07FD5A6F21A8</string>
+	<string>3907FE3AD2A0B71A5BA3ADC95BBF7D3A00219C99</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>5E97D556-A823-4C25-B276-07FD5A6F21A8</string>
+			<string>3907FE3AD2A0B71A5BA3ADC95BBF7D3A00219C99</string>
 			<key>IDESourceControlWCCName</key>
 			<string>DBImageView</string>
 		</dict>

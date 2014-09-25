@@ -9,7 +9,7 @@
 #import "DBImageRequest.h"
 #import "DBImageViewCache.h"
 
-@interface DBImageRequest () <NSURLConnectionDelegate>
+@interface DBImageRequest () <NSURLConnectionDelegate, NSURLConnectionDataDelegate>
 @property (nonatomic, copy) NSURLRequest *request;
 @property (nonatomic, strong) NSURLConnection *connection;
 @property (nonatomic, strong) NSHTTPURLResponse *response;
@@ -95,6 +95,8 @@
     [self endWithError:error];
 }
 
+#pragma mark - NSURLConnectionDelegate
+
 - (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
 {
     _response = (NSHTTPURLResponse *)response;
@@ -103,6 +105,18 @@
 - (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
 {
     [_receivedData appendData:data];
+}
+
+- (NSURLRequest *) connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse;
+{
+    if (redirectResponse) {
+        NSURL *newURL = [request URL];
+        NSMutableURLRequest *newRequest = [self.request mutableCopy];
+        [newRequest setURL: newURL];
+        return newRequest;
+    } else {
+        return request;
+    }
 }
 
 @end

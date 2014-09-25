@@ -41,7 +41,8 @@ static CGFloat const kCellHeight = 80.0;
                    @"http://static.derapate.it/derapate/fotogallery/625X0/3775/ducati-999.jpg",
                    @"http://siliconangle.com/files/2012/03/github_logo.jpg",
                    @"https://octodex.github.com/images/octobiwan.jpg",
-                   @"https://octodex.github.com/images/murakamicat.png"];
+                   @"https://octodex.github.com/images/murakamicat.png",
+                   @"http://tinyurl.com/q7xc48y"];
     }
     return self;
 }

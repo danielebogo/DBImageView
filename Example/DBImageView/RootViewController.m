@@ -85,12 +85,18 @@ static CGFloat const kCellHeight = 80.0;
 - (UIView *) headerView
 {
     if ( !_headerView ) {
-        _headerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, 320, 100 }];
+        CGFloat width = CGRectGetWidth([[UIScreen mainScreen] bounds]);
+        
+        _headerView = [[UIView alloc] initWithFrame:(CGRect){ 0, 0, width, 100 }];
         [_headerView setBackgroundColor:[UIColor grayColor]];
-        DBImageView *imageView = [[DBImageView alloc] initWithFrame:(CGRect){ 120, 10, 80, 80 }];
+        
+        DBImageView *imageView = [[DBImageView alloc] init];
         [imageView.layer setCornerRadius:40];
         [imageView setImageWithPath:@"https://scontent-a.xx.fbcdn.net/hphotos-xfa1/v/t1.0-9/10577058_10204359246124455_969288110705724720_n.jpg?oh=851258b8fd22341daf325b256d227fd8&oe=547E80AC"];
         [_headerView addSubview:imageView];
+        
+        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-marginW-[imageView]-marginW-|" options:0 metrics:@{ @"marginW":@((width-80)/2) } views:@{ @"imageView":imageView }]];
+        [_headerView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-10-[imageView(80)]-10-|" options:0 metrics:nil views:@{ @"imageView":imageView }]];
     }
     
     return _headerView;

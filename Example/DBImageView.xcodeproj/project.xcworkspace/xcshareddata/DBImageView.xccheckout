@@ -11,17 +11,17 @@
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>3907FE3AD2A0B71A5BA3ADC95BBF7D3A00219C99</key>
-		<string>ssh://github.com/danielebogo/DBImageView.git</string>
+		<string>github.com:danielebogo/DBImageView.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>untitled folder/DBImageView/DBImageView.xcodeproj/project.xcworkspace</string>
+	<string>Example/DBImageView.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>3907FE3AD2A0B71A5BA3ADC95BBF7D3A00219C99</key>
-		<string>../../../..</string>
+		<string>../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>ssh://github.com/danielebogo/DBImageView.git</string>
+	<string>github.com:danielebogo/DBImageView.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>

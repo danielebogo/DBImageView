@@ -46,16 +46,36 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     self = [super initWithFrame:frame];
     if (self) {
         // Initialization code
-        self.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
-        
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
         [self addSubview:_imageView];
-
-        [self setContentMode:UIViewContentModeScaleAspectFill];
-        [self setClipsToBounds:YES];
+        [self addSubview:self.spinner];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldStartDownload:) name:kDBImageViewShouldStartDownload
-                                                   object:nil];
+        self.spinner.center = (CGPoint){ CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds) };
+        
+        [self config];
+    }
+    return self;
+}
+
+- (id) init
+{
+    self = [super init];
+    if ( self ) {
+        self.translatesAutoresizingMaskIntoConstraints = NO;
+        
+        _imageView = [[UIImageView alloc] init];
+        _imageView.translatesAutoresizingMaskIntoConstraints = NO;
+        [self addSubview:_imageView];
+        [self addSubview:self.spinner];
+        [self config];
+        
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.spinner attribute:NSLayoutAttributeCenterX relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterX multiplier:1.0 constant:0.0]];
+        [self addConstraint:[NSLayoutConstraint constraintWithItem:self.spinner attribute:NSLayoutAttributeCenterY relatedBy:NSLayoutRelationEqual toItem:self attribute:NSLayoutAttributeCenterY multiplier:1.0 constant:0.0]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_imageView]|"
+                                                                     options:0 metrics:nil views:@{ @"_imageView":_imageView }]];
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_imageView]|"
+                                                                     options:0 metrics:nil views:@{ @"_imageView":_imageView }]];
     }
     return self;
 }
@@ -64,6 +84,16 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_currentRequest cancel];
+}
+
+- (void) config
+{
+    self.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
+    
+    [self setContentMode:UIViewContentModeScaleAspectFill];
+    [self setClipsToBounds:YES];
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldStartDownload:) name:kDBImageViewShouldStartDownload object:nil];
 }
 
 - (void) setFrame:(CGRect)frame
@@ -88,7 +118,7 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 - (void) stopSpinner;
 {
 	[self.spinner stopAnimating];
-	[self.spinner removeFromSuperview];
+	self.spinner.hidden = YES;
 }
 
 - (void) shouldStartDownload:(NSNotification *)notification
@@ -106,6 +136,7 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
         return;
     }
     
+    __weak typeof(self) weakSelf = self;
     [[DBImageViewCache cache] imageForURL:_remoteImage.imageURL found:^(UIImage *image) {
         _imageView.image = image;
     } notFound:^{
@@ -113,24 +144,21 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
             return;
         }
         
-        if ( !self.spinner.superview ) {
-            [self addSubview:self.spinner];
-        }
+        [weakSelf.spinner startAnimating];
+        weakSelf.spinner.hidden = NO;
         
-        [self.spinner startAnimating];
-        
+        typeof(self) blockSelf = weakSelf;
+
         _currentRequest = _remoteImage.imageRequest;
-        
         [_currentRequest downloadImageWithSuccess:^(UIImage *image, NSHTTPURLResponse *response) {
-            [self stopSpinner];
-            
-            _imageView.image = image;
-            _currentRequest = nil;
-            _imageWithPath = nil;
+            [weakSelf stopSpinner];
+            blockSelf->_imageView.image = image;
+            blockSelf->_currentRequest = nil;
+            blockSelf->_imageWithPath = nil;
         } error:^(NSError *error) {
-            [self stopSpinner];
-            _currentRequest = nil;
-            _imageWithPath = nil;
+            [weakSelf stopSpinner];
+            blockSelf->_currentRequest = nil;
+            blockSelf->_imageWithPath = nil;
         }];
     }];
 }
@@ -169,8 +197,9 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 {
     if ( !_spinner ) {
         _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _spinner.center = (CGPoint){ CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds) };
+        _spinner.translatesAutoresizingMaskIntoConstraints = NO;
 		_spinner.hidesWhenStopped = YES;
+        _spinner.hidden = YES;
     }
     return _spinner;
 }

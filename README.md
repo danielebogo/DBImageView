@@ -49,7 +49,7 @@ If you use a collection or a table, trigger the load action when you want
 6.0
 
 ##Version
-1.2
+1.3
 
 ##Created By
 [Daniele Bogo](https://github.com/danielebogo)

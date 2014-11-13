@@ -11,6 +11,7 @@
 @interface DBImageView : UIView
 @property (nonatomic, copy) NSString *imageWithPath;
 @property (nonatomic, strong) UIImage *placeHolder, *image;
+@property (nonatomic, assign) UIViewContentMode imageViewcontentMode;
 
 + (void) triggerImageRequests:(BOOL)start;
 + (void) clearCache;

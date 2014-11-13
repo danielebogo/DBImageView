@@ -26,13 +26,11 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 
 @implementation DBImageView
 
-+ (void) clearCache
-{
++ (void) clearCache {
     [[DBImageViewCache cache] clearCache];
 }
 
-+ (void) triggerImageRequests:(BOOL)start
-{
++ (void) triggerImageRequests:(BOOL)start {
     if (start != DBImageShouldDownload) {
 		DBImageShouldDownload = start;
 		
@@ -47,6 +45,7 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     if (self) {
         // Initialization code
         _imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        _imageView.clipsToBounds = YES;
         [self addSubview:_imageView];
         [self addSubview:self.spinner];
         
@@ -57,13 +56,13 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     return self;
 }
 
-- (id) init
-{
+- (id) init {
     self = [super init];
     if ( self ) {
         self.translatesAutoresizingMaskIntoConstraints = NO;
         
         _imageView = [[UIImageView alloc] init];
+        _imageView.clipsToBounds = YES;
         _imageView.translatesAutoresizingMaskIntoConstraints = NO;
         [self addSubview:_imageView];
         [self addSubview:self.spinner];
@@ -164,6 +163,10 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
 }
 
 #pragma mark - Properties
+
+- (void) setImageViewcontentMode:(UIViewContentMode)imageViewcontentMode {
+    _imageView.contentMode = imageViewcontentMode;
+}
 
 - (void) setImageWithPath:(NSString *)imageWithPath
 {

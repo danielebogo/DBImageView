@@ -1,12 +1,12 @@
 Pod::Spec.new do |s|
   s.name          = "DBImageView"
-  s.version       = "1.2"
+  s.version       = "1.3"
   s.summary       = "A simple object to load images asynchronously"
   s.license       = "MIT"
-  s.author        = { "danielebogo" => "me@bogodaniele.com" }
+  s.author        = { "Daniele Bogo" => "me@bogodaniele.com" }
   s.platform      = :ios, "6.0"
   s.homepage      = 'https://github.com/danielebogo/DBImageView'
-  s.source        = { :git => "https://github.com/danielebogo/DBImageView.git", :tag => "1.2" }
+  s.source        = { :git => "https://github.com/danielebogo/DBImageView.git", :tag => "1.3" }
   s.source_files  = "DBImageView/*.{h,m}"
   s.requires_arc = true
 end

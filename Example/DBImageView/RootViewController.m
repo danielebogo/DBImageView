@@ -42,7 +42,7 @@ static CGFloat const kCellHeight = 80.0;
                    @"http://siliconangle.com/files/2012/03/github_logo.jpg",
                    @"https://octodex.github.com/images/octobiwan.jpg",
                    @"https://octodex.github.com/images/murakamicat.png",
-                   @"http://tinyurl.com/q7xc48y"];
+                   @"http://tinyurl.com/mx6usaq"];
     }
     return self;
 }

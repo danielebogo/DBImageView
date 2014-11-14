@@ -24,6 +24,7 @@
 		9AA685AA19AB6CF300E8FBED /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA685A919AB6CF300E8FBED /* RootViewController.m */; };
 		9AA685AD19AB773700E8FBED /* DBImage.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA685AC19AB773700E8FBED /* DBImage.m */; };
 		9AA685B019AB7F7A00E8FBED /* DBImageRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AA685AF19AB7F7A00E8FBED /* DBImageRequest.m */; };
+		9ACCFBD91A1606CF0045198B /* DBImageView.podspec in Resources */ = {isa = PBXBuildFile; fileRef = 9ACCFBD81A1606CF0045198B /* DBImageView.podspec */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -63,6 +64,7 @@
 		9AA685AC19AB773700E8FBED /* DBImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBImage.m; sourceTree = "<group>"; };
 		9AA685AE19AB7F7A00E8FBED /* DBImageRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBImageRequest.h; sourceTree = "<group>"; };
 		9AA685AF19AB7F7A00E8FBED /* DBImageRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBImageRequest.m; sourceTree = "<group>"; };
+		9ACCFBD81A1606CF0045198B /* DBImageView.podspec */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = DBImageView.podspec; path = ../../DBImageView.podspec; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,6 +138,7 @@
 		9AA6857519AB54A100E8FBED /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				9ACCFBD81A1606CF0045198B /* DBImageView.podspec */,
 				9AA6857619AB54A100E8FBED /* DBImageView-Info.plist */,
 				9AA6857719AB54A100E8FBED /* InfoPlist.strings */,
 				9AA6857A19AB54A100E8FBED /* main.m */,
@@ -255,6 +258,7 @@
 			files = (
 				9AA6857919AB54A100E8FBED /* InfoPlist.strings in Resources */,
 				9AA6858119AB54A100E8FBED /* Images.xcassets in Resources */,
+				9ACCFBD91A1606CF0045198B /* DBImageView.podspec in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

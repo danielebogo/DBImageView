@@ -79,14 +79,74 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     return self;
 }
 
-- (void) dealloc
-{
+- (void) dealloc {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [_currentRequest cancel];
 }
 
-- (void) config
-{
+#pragma mark - Override
+
+- (void) setFrame:(CGRect)frame {
+    [super setFrame:frame];
+    
+    _imageView.frame = self.bounds;
+    _spinner.center = (CGPoint){ CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds) };
+}
+
+- (void) setClipsToBounds:(BOOL)clipsToBounds {
+    [super setClipsToBounds:clipsToBounds];
+    [_imageView setClipsToBounds:clipsToBounds];
+}
+
+- (void) setContentMode:(UIViewContentMode)contentMode {
+    _imageView.contentMode = contentMode;
+}
+
+- (void) setImage:(UIImage *)image {
+    _imageView.image = image;
+}
+
+- (void) setPlaceHolder:(UIImage *)placeHolder {
+    if ( ![placeHolder isEqual:_placeHolder] ) {
+        _placeHolder = placeHolder;
+        _imageView.image = placeHolder;
+    }
+}
+
+- (void) setImageViewcontentMode:(UIViewContentMode)imageViewcontentMode {
+    _imageView.contentMode = imageViewcontentMode;
+}
+
+- (void) setRemoteImage:(DBImage *)remoteImage {
+    if ( remoteImage != _remoteImage ) {
+        [_currentRequest cancel];
+        _currentRequest = nil;
+        
+        _remoteImage = remoteImage;
+        
+        if ( _placeHolder ) {
+            _imageView.image = _placeHolder;
+        } else {
+            _imageView.image = nil;
+        }
+        
+        [self startDownloadImage];
+    }
+}
+
+- (UIActivityIndicatorView *) spinner {
+    if ( !_spinner ) {
+        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        _spinner.translatesAutoresizingMaskIntoConstraints = NO;
+        _spinner.hidesWhenStopped = YES;
+        _spinner.hidden = YES;
+    }
+    return _spinner;
+}
+
+#pragma mark - Config
+
+- (void) config {
     self.backgroundColor = [UIColor colorWithWhite:0.7 alpha:1];
     
     [self setContentMode:UIViewContentModeScaleAspectFill];
@@ -95,38 +155,18 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(shouldStartDownload:) name:kDBImageViewShouldStartDownload object:nil];
 }
 
-- (void) setFrame:(CGRect)frame
-{
-    [super setFrame:frame];
-    
-    _imageView.frame = self.bounds;
-    _spinner.center = (CGPoint){ CGRectGetMidX(self.bounds), CGRectGetMidY(self.bounds) };
-}
+#pragma mark - Methods
 
-- (void) setClipsToBounds:(BOOL)clipsToBounds
-{
-    [super setClipsToBounds:clipsToBounds];
-    [_imageView setClipsToBounds:clipsToBounds];
-}
-
-- (void) setContentMode:(UIViewContentMode)contentMode
-{
-    _imageView.contentMode = contentMode;
-}
-
-- (void) stopSpinner;
-{
+- (void) stopSpinner; {
 	[self.spinner stopAnimating];
 	self.spinner.hidden = YES;
 }
 
-- (void) shouldStartDownload:(NSNotification *)notification
-{
+- (void) shouldStartDownload:(NSNotification *)notification {
     [self startDownloadImage];
 }
 
-- (void) startDownloadImage
-{
+- (void) startDownloadImage {
     if ( _currentRequest ) {
         return;
     }
@@ -137,7 +177,8 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     
     __weak typeof(self) weakSelf = self;
     [[DBImageViewCache cache] imageForURL:_remoteImage.imageURL found:^(UIImage *image) {
-        _imageView.image = image;
+        typeof(self) blockSelf = weakSelf;
+        blockSelf->_imageView.image = image;
     } notFound:^{
         if ( !DBImageShouldDownload ) {
             return;
@@ -148,8 +189,8 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
         
         typeof(self) blockSelf = weakSelf;
 
-        _currentRequest = _remoteImage.imageRequest;
-        [_currentRequest downloadImageWithSuccess:^(UIImage *image, NSHTTPURLResponse *response) {
+        blockSelf->_currentRequest = _remoteImage.imageRequest;
+        [blockSelf->_currentRequest downloadImageWithSuccess:^(UIImage *image, NSHTTPURLResponse *response) {
             [weakSelf stopSpinner];
             blockSelf->_imageView.image = image;
             blockSelf->_currentRequest = nil;
@@ -162,54 +203,13 @@ static NSString *const kDBImageViewShouldStartDownload = @"kDBImageViewShouldSta
     }];
 }
 
-#pragma mark - Properties
-
-- (void) setImageViewcontentMode:(UIViewContentMode)imageViewcontentMode {
-    _imageView.contentMode = imageViewcontentMode;
-}
-
-- (void) setImageWithPath:(NSString *)imageWithPath
-{
+- (void) setImageWithPath:(NSString *)imageWithPath {
     if ( [_imageWithPath isEqualToString:imageWithPath] ) {
         return;
     }
     
     _imageWithPath = imageWithPath;
     [self setRemoteImage:[DBImage imageWithPath:_imageWithPath]];
-}
-
-- (void) setRemoteImage:(DBImage *)remoteImage
-{
-    if ( remoteImage != _remoteImage ) {
-        [_currentRequest cancel];
-		_currentRequest = nil;
-        
-        _remoteImage = remoteImage;
-        
-        _imageView.image = nil;
-        
-        if ( _placeHolder ) {
-            _imageView.image = _placeHolder;
-        }
-        
-        [self startDownloadImage];
-    }
-}
-
-- (UIActivityIndicatorView *) spinner
-{
-    if ( !_spinner ) {
-        _spinner = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-        _spinner.translatesAutoresizingMaskIntoConstraints = NO;
-		_spinner.hidesWhenStopped = YES;
-        _spinner.hidden = YES;
-    }
-    return _spinner;
-}
-
-- (void) setImage:(UIImage *)image
-{
-    _imageView.image = image;
 }
 
 @end

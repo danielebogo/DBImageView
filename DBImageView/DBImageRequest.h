@@ -12,9 +12,7 @@ typedef void (^DBRequestSuccessHandler)(UIImage *image, NSHTTPURLResponse *respo
 typedef void (^DBRequestErrorHandler)(NSError *error);
 
 @interface DBImageRequest : NSObject
-
-- (id) initWithURLRequest:(NSURLRequest*)request;
+- (instancetype) initWithURLRequest:(NSURLRequest*)request;
 - (void) downloadImageWithSuccess:(DBRequestSuccessHandler)success error:(DBRequestErrorHandler)error;
 - (void) cancel;
-
 @end

@@ -21,34 +21,27 @@
 
 @implementation DBImageRequest
 
-- (id) initWithURLRequest:(NSURLRequest*)request
-{
+- (instancetype) initWithURLRequest:(NSURLRequest *)request {
     self = [super init];
-    
     if ( self ) {
         _request = request;
     }
-    
     return self;
 }
 
-- (void) dealloc;
-{
+- (void) dealloc; {
 	[_connection cancel];
 }
 
-- (void) downloadImageWithSuccess:(DBRequestSuccessHandler)success error:(DBRequestErrorHandler)error
-{
+- (void) downloadImageWithSuccess:(DBRequestSuccessHandler)success error:(DBRequestErrorHandler)error {
     _successHandler = success;
 	_errorHandler = error;
 	_receivedData = [NSMutableData data];
 	_connection = [NSURLConnection connectionWithRequest:self.request delegate:self];
 }
 
-- (void) requestDidEnd
-{
+- (void) requestDidEnd {
     [_connection cancel];
-    _connection = nil;
     
 	_successHandler = nil;
 	_errorHandler = nil;
@@ -56,13 +49,11 @@
     _receivedData = nil;
 }
 
-- (void) cancel
-{
+- (void) cancel {
     [self endWithError:[NSError errorWithDomain:NSCocoaErrorDomain code:NSUserCancelledError userInfo:nil]];
 }
 
-- (void) endWithError:(NSError *)error
-{
+- (void) endWithError:(NSError *)error {
     if ( _ended ) {
         return;
     }
@@ -85,30 +76,25 @@
 
 #pragma mark - NSURLConnectionDelegate
 
-- (void)connectionDidFinishLoading:(NSURLConnection *)connection
-{
+- (void)connectionDidFinishLoading:(NSURLConnection *)connection {
     [self endWithError:nil];
 }
 
-- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error
-{
+- (void) connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
     [self endWithError:error];
 }
 
 #pragma mark - NSURLConnectionDelegate
 
-- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response
-{
+- (void) connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response {
     _response = (NSHTTPURLResponse *)response;
 }
 
-- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data
-{
+- (void)connection:(NSURLConnection *)connection didReceiveData:(NSData *)data {
     [_receivedData appendData:data];
 }
 
-- (NSURLRequest *) connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse;
-{
+- (NSURLRequest *) connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request redirectResponse:(NSURLResponse *)redirectResponse {
     if (redirectResponse) {
         NSURL *newURL = [request URL];
         NSMutableURLRequest *newRequest = [self.request mutableCopy];

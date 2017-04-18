@@ -2,7 +2,7 @@
 
 A simple object to load images asynchronously
 
-##Getting Started
+## Getting Started
 
 ### Installation
 
@@ -45,11 +45,11 @@ If you use a collection or a table, trigger the load action when you want
 	[DBImageView triggerImageRequests:YES];
 }
 ```
-##iOS Min Required
+## iOS Min Required
 6.0
 
-##Version
+## Version
 1.3.1
 
-##Created By
+## Created By
 [Daniele Bogo](https://github.com/danielebogo)
